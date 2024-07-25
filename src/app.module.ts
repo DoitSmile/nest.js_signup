@@ -8,9 +8,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardModule } from './apis/boards/boards.module';
 import { ProductsModule } from './apis/products/products.module';
 import { UsersModule } from './apis/users/user.module';
+import { AuthModule } from './apis/auth/auth.module';
 
 @Module({
     imports: [
+        AuthModule,
         UsersModule,
         BoardModule,
         ProductsModule,
@@ -18,6 +20,7 @@ import { UsersModule } from './apis/users/user.module';
         GraphQLModule.forRoot<ApolloDriverConfig>({
             driver: ApolloDriver,
             autoSchemaFile: 'src/commons/graphql/schema.gql',
+            context: ({ req, res }) => ({ req, res }), // 기본적으로 req는 들어오지만 res는 이 작업이 필요
         }),
         TypeOrmModule.forRoot({
             type: process.env.DATABASE_TYPE as 'mysql',

@@ -54,12 +54,15 @@ type Product {
 }
 
 type Query {
+  fetchUser: String!
   fetchBoards: [Board!]
   fetchProducts: [Product!]!
   fetchProduct(productId: String!): Product!
 }
 
 type Mutation {
+  login(email: String!, password: String!): String!
+  restoreAccessToken: String!
   createUser(email: String!, password: String!, name: String!, age: Float!): User!
   createBoard(createBoardInput: CreateBoardInput!): String!
   createProduct(createProductInput: CreateProductInput!): Product!
